@@ -36,8 +36,34 @@ def actStock(Productos):
 def actPrecio(Productos):
     porcentaje = float(input("Ingrese el porcentaje de aumento (sin el '%'): "))
     for prod in Productos:
-        prod[5] = (prod[5] * (1 + porcentaje/100), 2)
+        aumento = prod[5] * (porcentaje / 100) 
+        prod[5] = prod[5] + aumento  
+    print("Precios actualizados con ", porcentaje,"de aumento")
+    return Productos
 
+def lisCat(Productos):
+    categoria = input("Ingrese la categoria que desea ver (Perifericos/Monitores/Componentes/Accesorios/Computadoras): ").lower()
+    for prod in Productos:
+        if prod[1].lower() == categoria:
+            print("Productos disponibles:", prod)
+
+def lisSuc(Productos):
+    sucursal = input("Ingrese la sucursal que desea ver (CABA/Adrogue/Temperley): ").lower()
+    for i in Productos:
+        if i[7].lower() == sucursal :
+            print("Productos disponibles en ", sucursal ,":", i)
+
+def elim(Productos):
+    for i in Productos:
+        print(i)
+    print()
+    prod = input("Ingrese el producto que desea eliminar: ").lower()
+    for b in Productos:
+        if b[0].lower() == prod:
+            Productos.remove(b)
+            print("Se borro correctamente ",prod)
+            return Productos
+    else: print("Producto no existente.")
 
 #Programa principal
 menu="""
@@ -57,7 +83,7 @@ Productos = [
     ["Monitor 24 pulgadas", "Monitores", "LG", "LG 24MP88HV-S", "Lista", 12000, 20, "Adrogue"],
     ["Laptop Gamer", "Computadoras", "Acer", "Acer Predator Helios 300", "Lista", 80000, 9, "Adrogue"],
     ["Auriculares Inalambricos", "Perifericos", "Acer", "Acer WH-1000XM4", "Lista", 4000, 23, "CABA"],
-    ["Disco Solido 480GB", "Componentes", "Corsair", "Corsair 480GB", "Oferta", 7000, 50, "CABA"],
+    ["Disco Solido", "Componentes", "Corsair", "Corsair 480GB", "Oferta", 7000, 50, "CABA"],
     ["Tarjeta Gráfica", "Componentes", "AMD", "RX 6500 XT 8GB", "Oferta", 35000, 12, "Temperley"],
     ["Fuente de Poder", "Componentes", "Corsair", "Corsair RM750x", "Lista", 10000, 25, "Temperley"],
     ["Procesador", "Componentes", "AMD", "Ryzen 7 5700F", "Lista", 15000, 10, "Adrogue"],
@@ -71,7 +97,7 @@ Productos = [
     ["Teclado de Membrana", "Perifericos", "Logitech", "Logitech K120", "Oferta", 1000, 70, "CABA"],
     ["Joystick", "Perifericos", "Logitech", "Logitech F310", "Lista", 2000, 55, "Adrogue"],
     ["Cable de Red", "Accesorios", "Acer", "Acer Cable de Red", "Lista", 300, 120, "Adrogue"],
-    ["Memoria RAM 16GB", "Componentes", "Corsair", "Corsair Vengeance LPX 16GB", "Oferta", 5000, 30, "Temperley"]
+    ["Memoria RAM", "Componentes", "Corsair", "Corsair Vengeance LPX 16GB", "Oferta", 5000, 30, "Temperley"]
 ]
 
 print("Bienvenido a Hardware Tagliani Store!")
@@ -89,8 +115,12 @@ while opcion != 8:
         actStock(Productos)
     elif opcion == 4:
         actPrecio(Productos)
-    #elif opcion == 5:
-        #subirprecio(Hotel)
+    elif opcion == 5:
+        lisCat(Productos)
+    elif opcion == 6:
+        lisSuc(Productos)
+    elif opcion == 7:
+        elim(Productos)
     else:
         print("Opción no válida")
     print(menu)
