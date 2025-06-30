@@ -69,7 +69,7 @@ def elim(Productos):
 menu="""
 1. Mostrar productos disponibles de una marca
 2. Agregar un producto
-3. Cambiar el estado de stock de un producto 
+3. Actualizar el estado de stock de un producto 
 4. Actualizar precio de todos los productos 
 5. Listar por categoria de un producto. (Perifericos/Componente/Monitor, etc.)
 6. Listar productos de una sucursal. El usuario debera ingresar la sucursal (CABA/Temperley/Adrogue)
