@@ -1,13 +1,14 @@
 #Trabajo Final C8 - Fase Inicial - Tomas Tagliani
 # Voy a hacer un sistema para administrar un comercio de gagdets y accesorios de computación.
+#TRABAJO APROBADO - PROMOCION PRIMER CUATRIMESTRE 2025
 #Area de funciones
-def mostrarProd(Productos):
+def mostrarProd(lista):
      marca = input("Ingrese la marca que desea ver (Logitech/AMD/Acer/LG/Corsair): ").lower()
-     for producto in Productos:
+     for producto in lista:
         if producto[2].lower() == marca:
             print("Productos disponibles:", producto)
 
-def agrProd(Productos):
+def agrProd(lista):
     prod = input("Ingrese el nombre del producto: ")
     cat = input("Ingrese la categoría del producto: ")
     marca = input("Ingrese la marca del producto: ")
@@ -17,53 +18,65 @@ def agrProd(Productos):
     stock = int(input("Ingrese el stock del producto: "))
     suc = input("Ingrese la sucursal: ")
     prodnuevo = [prod, cat, marca, mod, est, precio, stock, suc]
-    Productos.append(prodnuevo)
+    lista.append(prodnuevo)
     print("Producto agregado con éxito")
-    return Productos
+    return lista
 
-def actStock(Productos):
-    for i in Productos:
+def actStock(lista):
+    for i in lista:
         print(i)
     print()
     opcion = (input("Ingrese el producto que desea cambiar: "))
-    for prod in Productos:
+    for prod in lista:
         if prod[0].lower() == opcion.lower():
             stocknuevo = int(input("Ingrese el nuevo stock: ")) 
             prod[6] = stocknuevo
             print("La opcion", opcion, "fue cambiada con exito a: ",stocknuevo)
-            return Productos
+            return lista
 
-def actPrecio(Productos):
+def actPrecio(lista):
     porcentaje = float(input("Ingrese el porcentaje de aumento (sin el '%'): "))
-    for prod in Productos:
+    for prod in lista:
         aumento = prod[5] * (porcentaje / 100) 
         prod[5] = prod[5] + aumento  
     print("Precios actualizados con ", porcentaje,"de aumento")
-    return Productos
+    return lista
 
-def lisCat(Productos):
+def lisCat(lista):
     categoria = input("Ingrese la categoria que desea ver (Perifericos/Monitores/Componentes/Accesorios/Computadoras): ").lower()
-    for prod in Productos:
+    for prod in lista:
         if prod[1].lower() == categoria:
             print("Productos disponibles:", prod)
 
-def lisSuc(Productos):
+def lisSuc(lista):
     sucursal = input("Ingrese la sucursal que desea ver (CABA/Adrogue/Temperley): ").lower()
-    for i in Productos:
+    for i in lista:
         if i[7].lower() == sucursal :
             print("Productos disponibles en ", sucursal ,":", i)
 
-def elim(Productos):
-    for i in Productos:
+def elim(lista):
+    for i in lista:
         print(i)
     print()
     prod = input("Ingrese el producto que desea eliminar: ").lower()
-    for b in Productos:
+    for b in lista:
         if b[0].lower() == prod:
-            Productos.remove(b)
+            lista.remove(b)
             print("Se borro correctamente ",prod)
-            return Productos
+            return lista
     else: print("Producto no existente.")
+
+def mostrarProm(lista):
+    iterador = 0
+    suma = 0
+    opcion = input("Que categoria desea calcular el promedio?: ")
+    for i in lista:
+        if i[1] == opcion:
+            suma = suma + i[5]
+            iterador = iterador + 1
+    promedio = suma / iterador
+    print("Su promedio es: ", promedio)
+    return promedio
 
 #Programa principal
 menu="""
@@ -74,7 +87,8 @@ menu="""
 5. Listar por categoria de un producto. (Perifericos/Componente/Monitor, etc.)
 6. Listar productos de una sucursal. El usuario debera ingresar la sucursal (CABA/Temperley/Adrogue)
 7. Eliminar un producto 
-8. Salir
+8. Mostrar promedio de precio de una categoria
+9. Salir
 """
 
 Productos = [
@@ -106,7 +120,7 @@ print(menu)
 
 opcion = int(input("Ingrese una opción del menú: "))
 
-while opcion != 8:
+while opcion != 9:
     if opcion == 1:
         mostrarProd(Productos)
     elif opcion == 2:
@@ -121,6 +135,8 @@ while opcion != 8:
         lisSuc(Productos)
     elif opcion == 7:
         elim(Productos)
+    elif opcion == 8:
+        mostrarProm(Productos)
     else:
         print("Opción no válida")
     print(menu)
